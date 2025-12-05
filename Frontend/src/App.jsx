@@ -16,10 +16,12 @@ import EventosOrganizador from './pages/Organizador/EventosOrganizador/EventosOr
 import EventoCreate from './pages/Evento/EventoCreate/EventoCreate.jsx';
 import EventoEdit from './pages/Evento/EventoEdit/EventoEdit.jsx';
 import VerificarComprobantes from './pages/Organizador/VerificarComprobantes/VerificarComprobantes.jsx';
+import ReportesEvento from './pages/Organizador/ReportesEvento/ReportesEvento.jsx';
 
 // Páginas de Validador
 import ValidadorHome from './pages/Validador/ValidadorHome/ValidadorHome.jsx';
 import ValidarQR from './pages/Validador/ValidarQR/ValidarQR.jsx';
+import EscanearQR from './pages/Validador/EscanearQR/EscanearQR.jsx';
 
 // Páginas de Admin
 import AdminUsuarios from './pages/Admin/AdminUsuarios/AdminUsuarios.jsx';
@@ -81,20 +83,36 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/organizador/reportes/:eventoId"
+          element={
+            <ProtectedRoute allowedRoles={['organizador']}>
+              <ReportesEvento />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Rutas de Validador */}
         <Route
           path="/validador"
           element={
-            <ProtectedRoute allowedRoles={['validador']}>
+            <ProtectedRoute allowedRoles={['validator']}>
               <ValidadorHome />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/validador/escanear"
+          element={
+            <ProtectedRoute allowedRoles={['validator']}>
+              <EscanearQR />
             </ProtectedRoute>
           }
         />
         <Route
           path="/validador/validar/:token"
           element={
-            <ProtectedRoute allowedRoles={['validador']}>
+            <ProtectedRoute allowedRoles={['validator']}>
               <ValidarQR />
             </ProtectedRoute>
           }

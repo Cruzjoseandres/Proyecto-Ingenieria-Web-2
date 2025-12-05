@@ -12,7 +12,7 @@ export const useAdminUsuarios = () => {
         email: '',
         password: '',
         fullName: '',
-        role:'',
+        role: '',
     });
 
     const loadUsuarios = useCallback(async () => {
@@ -90,7 +90,7 @@ export const useAdminUsuarios = () => {
                     fullName: formData.fullName
                 };
 
-                if (formData.role === 'validador') {
+                if (formData.role === 'validator') {
                     await createValidator(payload);
                 } else if (formData.role === 'organizador') {
                     await createOrganizador(payload);
@@ -126,7 +126,7 @@ export const useAdminUsuarios = () => {
         const variants = {
             admin: 'danger',
             organizador: 'primary',
-            validador: 'warning',
+            validator: 'warning',
             user: 'secondary'
         };
         return variants[role] || 'secondary';

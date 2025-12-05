@@ -42,6 +42,7 @@ export const useEventosOrganizador = () => {
     const handleCrear = () => navigate('/organizador/eventos/crear');
     const handleEditar = (id) => navigate(`/organizador/eventos/editar/${id}`);
     const handleVerComprobantes = (id) => navigate(`/organizador/comprobantes/${id}`);
+    const handleVerReportes = (id) => navigate(`/organizador/reportes/${id}`);
 
     const isEventoPasado = (fecha) => new Date(fecha) < new Date();
 
@@ -53,6 +54,7 @@ export const useEventosOrganizador = () => {
         handleCrear,
         handleEditar,
         handleVerComprobantes,
+        handleVerReportes,
         isEventoPasado
     };
 };

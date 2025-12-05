@@ -109,7 +109,7 @@ const AdminUsuarios = () => {
                                 <option value="">Seleccione un rol</option>
                                 <option value="usuario">Usuario</option>
                                 <option value="organizador">Organizador</option>
-                                <option value="validador">Validador</option>
+                                <option value="validator">Validador</option>
                                 <option value="admin">Administrador</option>
                             </Form.Select>
                         </Form.Group>

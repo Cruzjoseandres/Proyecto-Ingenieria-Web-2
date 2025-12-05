@@ -1,7 +1,7 @@
 /* ValidarQR - Validación de códigos QR */
 
 .validar-qr-container {
-    padding: 2rem 0;
+    padding: 2rem 1rem;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -13,48 +13,76 @@
 
 /* Card de resultado */
 .resultado-card {
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
     text-align: center;
     padding: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border: none;
 }
 
-.resultado-card.valido {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(52, 211, 153, 0.15));
-    border: 2px solid #10b981;
+.resultado-card.success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: #fff;
 }
 
-.resultado-card.invalido {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(248, 113, 113, 0.15));
-    border: 2px solid #ef4444;
+.resultado-card.warning {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: #fff;
+}
+
+.resultado-card.danger {
+    background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+    color: #fff;
 }
 
 /* Icono grande */
 .resultado-icon {
     font-size: 5rem;
     margin-bottom: 1rem;
-    color: #10b981;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .resultado-icon.error {
-    color: #ef4444;
+    color: #fff;
 }
 
 /* Info del resultado */
 .resultado-info {
     text-align: left;
-    background: white;
+    background: rgba(255, 255, 255, 0.15);
     padding: 1.5rem;
-    border-radius: 12px;
+    border-radius: 15px;
     margin-top: 1rem;
+    backdrop-filter: blur(10px);
 }
 
 .resultado-info p {
     margin-bottom: 0.5rem;
     padding: 0.5rem 0;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 1.1rem;
 }
 
 .resultado-info p:last-of-type {
     border-bottom: none;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .validar-qr-container {
+        padding: 1rem 0.5rem;
+    }
+
+    .resultado-card {
+        padding: 1.5rem;
+    }
+
+    .resultado-icon {
+        font-size: 4rem;
+    }
+
+    .resultado-info p {
+        font-size: 1rem;
+    }
 }

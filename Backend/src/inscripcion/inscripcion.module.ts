@@ -9,6 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([Inscripcion]),

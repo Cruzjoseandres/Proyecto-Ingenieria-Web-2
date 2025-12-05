@@ -1,9 +1,20 @@
-import { Container, Card, Button, Spinner, Alert, Badge } from 'react-bootstrap';
+import { Container, Card, Button, Spinner, Alert } from 'react-bootstrap';
 import { useValidarQR } from './useValidarQR';
 import './ValidarQR.css';
 
 const ValidarQR = () => {
-    const { token, validando, resultado, error, handleVolver, formatFecha } = useValidarQR();
+    const {
+        token,
+        validando,
+        resultado,
+        error,
+        handleVolver,
+        handleEscanear,
+        formatFecha,
+        getEstadoVisual
+    } = useValidarQR();
+
+    const estadoVisual = getEstadoVisual();
 
     if (validando) {
         return (
@@ -22,43 +33,52 @@ const ValidarQR = () => {
 
             {error && (
                 <Alert variant="danger" className="text-center">
-                    <h4>❌ Código Inválido</h4>
+                    <h4>❌ Error de Validación</h4>
                     <p>{error}</p>
                 </Alert>
             )}
 
-            {resultado && (
-                <Card className={`resultado-card ${resultado.valido ? 'valido' : 'invalido'}`}>
-                    <Card.Body className="text-center">
-                        {resultado.valido ? (
-                            <>
-                                <div className="resultado-icon">✓</div>
-                                <h2 className="text-success">Ingreso Válido</h2>
-                                <div className="resultado-info mt-4">
-                                    <p><strong>Participante:</strong> {resultado.inscripcion.user.fullName}</p>
-                                    <p><strong>Email:</strong> {resultado.inscripcion.user.email}</p>
-                                    <p><strong>Evento:</strong> {resultado.inscripcion.lugar.titulo}</p>
-                                    <p><strong>Fecha del Evento:</strong> {formatFecha(resultado.inscripcion.lugar.fecha)}</p>
-                                    {resultado.inscripcion.ingresado && (
-                                        <Alert variant="warning" className="mt-3">
-                                            <strong>Nota:</strong> Esta persona ya ingresó anteriormente el {new Date(resultado.inscripcion.fechaIngreso).toLocaleString('es-ES')}
-                                        </Alert>
-                                    )}
-                                    <Badge bg="success" className="mt-3 p-3" style={{ fontSize: '1.2rem' }}>
-                                        ACCESO AUTORIZADO
-                                    </Badge>
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <div className="resultado-icon error">✗</div>
-                                <h2 className="text-danger">Ingreso Inválido</h2>
-                                <p className="mt-3">{resultado.mensaje}</p>
-                                <Badge bg="danger" className="mt-3 p-3" style={{ fontSize: '1.2rem' }}>
-                                    ACCESO DENEGADO
-                                </Badge>
-                            </>
+            {resultado && estadoVisual && (
+                <Card className={`resultado-card ${estadoVisual.tipo}`}>
+                    <Card.Body className="text-center py-4">
+                        <div className={`resultado-icon ${estadoVisual.tipo === 'danger' ? 'error' : ''}`}>
+                            {estadoVisual.icono}
+                        </div>
+                        <h2 className={`text-${estadoVisual.tipo === 'success' ? 'success' : estadoVisual.tipo === 'warning' ? 'warning' : 'danger'}`}>
+                            {estadoVisual.titulo}
+                        </h2>
+
+                        {/* Info del participante */}
+                        {resultado.participante && (
+                            <div className="resultado-info mt-4">
+                                <p><strong>👤 Participante:</strong> {resultado.participante.fullName}</p>
+                                <p><strong>📧 Email:</strong> {resultado.participante.email}</p>
+
+                                {resultado.evento && (
+                                    <>
+                                        <p><strong>🎉 Evento:</strong> {resultado.evento.titulo}</p>
+                                        <p><strong>📅 Fecha:</strong> {formatFecha(resultado.evento.fecha)}</p>
+                                    </>
+                                )}
+                            </div>
                         )}
+
+                        {/* Mensaje */}
+                        <p className="mt-3 fs-5">{resultado.message}</p>
+
+                        {/* Alerta de ya ingresado */}
+                        {resultado.estado === 'ya_ingresado' && resultado.fechaIngreso && (
+                            <Alert variant="warning" className="mt-3">
+                                <strong>⚠ Atención:</strong> Esta persona ya ingresó el {formatFecha(resultado.fechaIngreso)}
+                            </Alert>
+                        )}
+
+                        {/* Badge */}
+                        <div className="mt-3">
+                            <span className={`badge bg-${estadoVisual.badgeColor} p-3`} style={{ fontSize: '1.2rem' }}>
+                                {estadoVisual.badge}
+                            </span>
+                        </div>
                     </Card.Body>
                 </Card>
             )}
@@ -70,9 +90,12 @@ const ValidarQR = () => {
                 </Alert>
             )}
 
-            <div className="text-center mt-4">
-                <Button variant="secondary" onClick={handleVolver}>
-                    Volver
+            <div className="text-center mt-4 d-flex gap-3 justify-content-center flex-wrap">
+                <Button variant="primary" size="lg" onClick={handleEscanear}>
+                    📷 Escanear Otro
+                </Button>
+                <Button variant="secondary" size="lg" onClick={handleVolver}>
+                    ← Volver
                 </Button>
             </div>
         </Container>

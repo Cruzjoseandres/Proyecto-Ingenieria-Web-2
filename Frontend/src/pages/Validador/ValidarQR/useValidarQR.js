@@ -30,8 +30,10 @@ export const useValidarQR = () => {
     }, [token, handleValidar]);
 
     const handleVolver = () => navigate('/validador');
+    const handleEscanear = () => navigate('/validador/escanear');
 
     const formatFecha = (fecha) => {
+        if (!fecha) return 'No disponible';
         return new Date(fecha).toLocaleDateString('es-ES', {
             year: 'numeric',
             month: 'long',
@@ -41,12 +43,55 @@ export const useValidarQR = () => {
         });
     };
 
+    // Determinar estado visual basado en la respuesta del backend
+    const getEstadoVisual = () => {
+        if (!resultado) return null;
+
+        switch (resultado.estado) {
+            case 'valido':
+                return {
+                    tipo: 'success',
+                    icono: '✓',
+                    titulo: 'Ingreso Válido',
+                    badge: 'ACCESO AUTORIZADO',
+                    badgeColor: 'success'
+                };
+            case 'ya_ingresado':
+                return {
+                    tipo: 'warning',
+                    icono: '⚠',
+                    titulo: 'Ya Ingresado',
+                    badge: 'ENTRADA DUPLICADA',
+                    badgeColor: 'warning'
+                };
+            case 'no_confirmado':
+                return {
+                    tipo: 'danger',
+                    icono: '✗',
+                    titulo: 'No Confirmado',
+                    badge: 'PAGO PENDIENTE',
+                    badgeColor: 'danger'
+                };
+            case 'invalido':
+            default:
+                return {
+                    tipo: 'danger',
+                    icono: '✗',
+                    titulo: 'Inválido',
+                    badge: 'ACCESO DENEGADO',
+                    badgeColor: 'danger'
+                };
+        }
+    };
+
     return {
         token,
         validando,
         resultado,
         error,
         handleVolver,
-        formatFecha
+        handleEscanear,
+        formatFecha,
+        getEstadoVisual
     };
 };

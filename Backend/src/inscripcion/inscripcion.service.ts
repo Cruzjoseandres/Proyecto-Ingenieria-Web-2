@@ -364,7 +364,7 @@ export class InscripcionService {
 
   async findByEvento(eventoId: number) {
     const inscripciones = await this.inscripcionRepository.find({
-      where: { lugar: { id: eventoId } },
+      where: { lugar: { id: eventoId }, estado: true },
       relations: ['user'],
     });
 

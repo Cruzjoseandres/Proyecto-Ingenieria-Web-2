@@ -11,6 +11,7 @@ const EventosOrganizador = () => {
         handleCrear,
         handleEditar,
         handleVerComprobantes,
+        handleVerReportes,
         isEventoPasado
     } = useEventosOrganizador();
 
@@ -71,9 +72,14 @@ const EventosOrganizador = () => {
                                                 <Button variant="warning" className="flex-fill" onClick={() => handleEditar(evento.id)}>Editar</Button>
                                                 <Button variant="danger" className="flex-fill" onClick={() => handleDelete(evento.id)}>Eliminar</Button>
                                             </div>
-                                            <Button variant="outline-primary" className="w-100" onClick={() => handleVerComprobantes(evento.id)}>
-                                                Ver Comprobantes
-                                            </Button>
+                                            <div className="d-flex gap-2">
+                                                <Button variant="outline-primary" className="flex-fill" onClick={() => handleVerComprobantes(evento.id)}>
+                                                    Comprobantes
+                                                </Button>
+                                                <Button variant="outline-info" className="flex-fill" onClick={() => handleVerReportes(evento.id)}>
+                                                    Reportes
+                                                </Button>
+                                            </div>
                                         </div>
                                     </Card.Body>
                                 </Card>

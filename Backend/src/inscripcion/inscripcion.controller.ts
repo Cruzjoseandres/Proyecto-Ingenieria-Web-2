@@ -80,8 +80,8 @@ export class InscripcionController {
   
   @UseGuards(AuthGuard, OrganizadorGuard)
   @Patch(':id/verificar-comprobante')
-  verificarComprobante(@Param('id') id: string, @Body('aprobar') aprobar: boolean) {
-    return this.inscripcionService.verificarComprobante(+id, aprobar);
+  verificarComprobante(@Param('id') id: number, @Body('aprobar') aprobar: boolean) {
+    return this.inscripcionService.verificarComprobante(id, aprobar);
   }
 
   // Obtener inscripciones pendientes de verificación

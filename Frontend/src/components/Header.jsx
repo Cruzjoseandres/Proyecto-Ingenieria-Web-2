@@ -41,7 +41,7 @@ const Header = () => {
                             </>
                         )}
 
-                        {token && userInfo?.role === 'validador' && (
+                        {token && userInfo?.role === 'validator' && (
                             <>
                                 <Link className="nav-link" to="/validador">Panel Validador</Link>
                             </>
