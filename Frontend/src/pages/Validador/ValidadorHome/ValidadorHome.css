@@ -1,0 +1,15 @@
+/* ValidadorHome - Panel del validador */
+
+.validador-home-container {
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.validador-home-container h1 {
+    margin-bottom: 1.5rem;
+}
+
+.validador-home-container .card {
+    max-width: 600px;
+    margin: 0 auto;
+}
